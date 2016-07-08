@@ -890,7 +890,7 @@ class Interface(QDialog):
             value /= steps_in_mm
             label.setText('{:5.3f}'.format(value))
         else:
-            label.setText('0')
+            label.setText('0.000')
 
 
 # noinspection PyCallByClass,PyArgumentList
@@ -903,6 +903,7 @@ def main():
     app.setStyleSheet(STYLE)
 
     ex = Interface()
+    print(ex)
 
     sys.exit(app.exec_())
 
