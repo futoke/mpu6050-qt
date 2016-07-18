@@ -66,7 +66,7 @@ BAUDRATES = (
 STYLE = """
 QLCDNumber {
     background: black;
-    color:green;
+    color: blue;
 }
 
 QLCDNumber:flat {
