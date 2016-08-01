@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb230d30-d6c0-4f14-ad11-2b9a1eca5bc8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/arduino-model/Backup Of arduino-model.pdsbak" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/arduino-model/arduino-model.pdsprj.cray.ichiro.workspace" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stuart-control/stuart-control.ino.standard.hex" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stuart-control/stuart-control.ino.with_bootloader.standard.hex" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mpu6050-qt.pyw" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arduino-model/arduino-model.pdsprj" afterPath="$PROJECT_DIR$/arduino-model/arduino-model.pdsprj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mpu6050-qt.py" afterPath="$PROJECT_DIR$/mpu6050-qt.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuart-control/stuart-control.ino.leonardo.hex" afterPath="$PROJECT_DIR$/stuart-control/stuart-control.ino.leonardo.hex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuart-control/stuart-control.ino.with_bootloader.leonardo.hex" afterPath="$PROJECT_DIR$/stuart-control/stuart-control.ino.with_bootloader.leonardo.hex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/arduino-model/arduino-model.pdsprj.cray.ichiro.workspace" afterPath="$PROJECT_DIR$/arduino-model/arduino-model.pdsprj.cray.ichiro.workspace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuart-control/stuart-control.ino.standard.hex" afterPath="$PROJECT_DIR$/stuart-control/stuart-control.ino.standard.hex" />
     </list>
     <ignored path="source.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -430,7 +422,14 @@
       <option name="project" value="LOCAL" />
       <updated>1468828121121</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add chunks moving">
+      <created>1470067550823</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1470067550823</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -443,7 +442,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32750398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26868045" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26868045" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19939578" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32750398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -471,7 +470,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Interface improving" />
     <MESSAGE value="Change LCD color" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change LCD color" />
+    <MESSAGE value="Add chunks moving" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add chunks moving" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
