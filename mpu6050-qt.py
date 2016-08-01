@@ -38,6 +38,9 @@ DELAY_CNT = 15
 MOVE_DONE = b'M'
 ZERO_ALL = b'X'
 
+CHUNK_SIZE = 100
+SLEEP_TIME = 2
+
 PACKET_HEADER = '0x55'
 ACCEL_PREFIX = '0x51'
 VEL_PREFIX = '0x52'
@@ -349,6 +352,7 @@ class PlatformThread(QtCore.QThread):
     def __init__(self):
         super().__init__()
 
+        self.message_queue = []
         self.signal = PlatformSignal()
 
     def open_port(self, port, baudrate):
@@ -382,7 +386,12 @@ class PlatformThread(QtCore.QThread):
         while True:
             answer = self.read_ser_data()
             if answer == MOVE_DONE:
-                self.signal.move_done.emit(True)
+                time.sleep(SLEEP_TIME)
+                if self.message_queue:
+                    message = self.message_queue.pop()
+                    self.write_ser_data(message.encode())
+                else:
+                    self.signal.move_done.emit(True)
             elif answer == ZERO_ALL:
                 print('All coordinates are zero.')
 
@@ -426,6 +435,10 @@ class Interface(QDialog):
             QtCore.Qt.WindowTitleHint |
             QtCore.Qt.WindowCloseButtonHint
         )
+        self.coord_1 = 0
+        self.coord_2 = 0
+        self.coord_3 = 0
+        self.coord_4 = 0
 
         self.imu_connection_state = False
         self.platform_connection_state = False
@@ -551,8 +564,42 @@ class Interface(QDialog):
         if path:
             self.file_path.setText(str(path))
 
+    @staticmethod
+    def fill_coords_queue(coords: list) -> list:
+
+        """
+
+        :param coords:
+        :return:
+        """
+        coords_queue = [[c[0]] for c in coords]
+
+        for (begin_coord, end_coord), queue_item in zip(coords, coords_queue):
+            if end_coord - begin_coord > 0:
+                while queue_item[-1] < end_coord:
+                    if end_coord - queue_item[-1] < CHUNK_SIZE:
+                        queue_item += [end_coord]
+                    else:
+                        queue_item += [queue_item[-1] + CHUNK_SIZE]
+            else:
+                while queue_item[-1] > end_coord:
+                    if queue_item[-1] - end_coord < CHUNK_SIZE:
+                        queue_item += [end_coord]
+                    else:
+                        queue_item += [queue_item[-1] - CHUNK_SIZE]
+
+        max_len = max(map(len, coords_queue))
+
+        for queue_item in coords_queue:
+            queue_item_len = len(queue_item)
+            if queue_item_len < max_len:
+                queue_item += (max_len - queue_item_len) * [queue_item[-1]]
+
+        return list(reversed(list(zip(*coords_queue))))
+
     def send_coords(self):
         message = '^MOVE,{},{},{},{}$'
+        message_queue = []
 
         if not self.sync_box.isChecked():
             coord_1 = self.rod_1.text()
@@ -565,13 +612,36 @@ class Interface(QDialog):
             coord_3 = self.rod_3.text()
             coord_4 = '-' + self.rod_3.text()
 
-        message = message.format(coord_1, coord_2, coord_3, coord_4)
+        coords_queue = self.fill_coords_queue([
+            (self.coord_1, int(coord_1)),
+            (self.coord_2, int(coord_2)),
+            (self.coord_3, int(coord_3)),
+            (self.coord_4, int(coord_4))
+        ])
 
+        for coord_list in coords_queue:
+            message_queue += [message.format(*coord_list)]
+
+        message = message_queue.pop()
         self.platform_thread.write_ser_data(message.encode())
+        self.platform_thread.message_queue = message_queue
+
         self.platform_go_button.setEnabled(False)
+        self.platform_zero_button.setEnabled(False)
+
+        self.coord_1 = int(coord_1)
+        self.coord_2 = int(coord_2)
+        self.coord_3 = int(coord_3)
+        self.coord_4 = int(coord_4)
 
     def send_zero_all(self):
         self.platform_thread.write_ser_data(b'^ZERO$')
+
+        self.coord_1 = 0
+        self.coord_2 = 0
+        self.coord_3 = 0
+        self.coord_4 = 0
+
         self.rod_1.setText('0')
         self.rod_2.setText('0')
         self.rod_3.setText('0')
@@ -739,6 +809,9 @@ class Interface(QDialog):
         # noinspection PyUnresolvedReferences
         self.platform_thread.signal.move_done.connect(
             self.platform_go_button.setEnabled
+        )
+        self.platform_thread.signal.move_done.connect(
+            self.platform_zero_button.setEnabled
         )
         # noinspection PyUnresolvedReferences
         self.platform_go_button.clicked.connect(self.send_coords)
